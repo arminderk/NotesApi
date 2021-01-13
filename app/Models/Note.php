@@ -9,6 +9,11 @@ class Note extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'title',
+        'note',
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
