@@ -39,6 +39,6 @@ Route::post('/login', function(Request $request) {
     return $token->plainTextToken;
 })->name('login');
 
-Route::middleware('auth:sanctum')->resource('user.notes', NoteController::class)->except([
-    'create', 'edit'
-]);
+Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'user'], function() {
+    Route::apiResource('notes', NoteController::class);
+});

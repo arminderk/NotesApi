@@ -12,8 +12,8 @@ class NoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user) {
-        return $user->notes;
+    public function index() {
+        return auth()->user()->notes;
     }
 
     /**
@@ -42,8 +42,10 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user, $id) {
-        return $user->notes()->find($id);
+    public function show($id) {
+        $note = auth()->user()->notes->find($id);
+        $this->authorize('view', $note); // Verify against NotePolicy
+        return $note;
     }
 
     /**
@@ -53,8 +55,10 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user, $id) {
+    public function update(Request $request, $id) {
         $note = $request->user()->notes()->where('id', $id)->first();
+        $this->authorize('update', $note); // Verify against NotePolicy
+
         $note->update($request->all());
         return $note;
     }
@@ -65,8 +69,10 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user, $id) {
-        $note = $user->notes()->find($id);
+    public function destroy($id) {
+        $note = auth()->user()->notes->find($id);
+        $this->authorize('delete', $note); // Verify against NotePolicy
+
         $note->delete();
         return $note;
     }
