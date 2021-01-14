@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -11,17 +12,8 @@ class NoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        return auth()->user()->notes;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
+    public function index(User $user) {
+        return $user->notes;
     }
 
     /**
@@ -36,12 +28,12 @@ class NoteController extends Controller
             'note' => 'required|max:1000',
         ]);
 
-        $request->user()->notes()->create([
+        $post = $request->user()->notes()->create([
             'title' => $request->title,
             'note' => $request->note
         ]);
 
-        return response()->json(['message' => 'Note created successfully']);
+        return $post;
     }
 
     /**
@@ -50,18 +42,8 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
+    public function show(User $user, $id) {
+        return $user->notes()->find($id);
     }
 
     /**
@@ -71,8 +53,10 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function update(Request $request, User $user, $id) {
+        $note = $request->user()->notes()->where('id', $id)->first();
+        $note->update($request->all());
+        return $note;
     }
 
     /**
@@ -81,7 +65,9 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy(User $user, $id) {
+        $note = $user->notes()->find($id);
+        $note->delete();
+        return $note;
     }
 }

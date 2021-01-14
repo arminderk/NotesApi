@@ -24,8 +24,6 @@ use Illuminate\Support\Facades\Auth;
 // 4. Update specific note (PUT) /api/user/{user_id}/notes/{id}
 // 5. Delete specific note (DELETE) /api/user/{user_id}/notes/{id}
 
-Route::resource('user.notes', NoteController::class);
-
 Route::get('/unauthorized', function() {
     return response()->json(['error' => "Unauthorized"], 401);
 })->name('unauthorized');
@@ -36,9 +34,11 @@ Route::post('/login', function(Request $request) {
     // Basic Auth
     Auth::attempt($creds);
 
-    // To do: Generate Token (Laravel Sanctum)
+    // Generate Token (Using Laravel Sanctum)
+    $token = $request->user()->createToken('token-name');
+    return $token->plainTextToken;
 })->name('login');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->resource('user.notes', NoteController::class)->except([
+    'create', 'edit'
+]);
