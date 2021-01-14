@@ -59,6 +59,11 @@ class NoteController extends Controller
         $note = $request->user()->notes()->where('id', $id)->first();
         $this->authorize('update', $note); // Verify against NotePolicy
 
+        $this->validate($request, [
+            'title' => 'max:50',
+            'note' => 'max:1000',
+        ]);
+
         $note->update($request->all());
         return $note;
     }
