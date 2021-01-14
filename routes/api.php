@@ -41,4 +41,12 @@ Route::post('/login', function(Request $request) {
 
 Route::group(['middleware' => 'auth:sanctum', 'prefix' => 'user'], function() {
     Route::apiResource('notes', NoteController::class);
+
+    // Logout Route
+    Route::get('/logout', function(Request $request) {
+        // Revoke the token that was used to authenticate the current request...
+        $request->user()->currentAccessToken()->delete();
+    
+        return response()->json(['message' => "User successfully logged out."]);
+    })->name('logout');
 });
