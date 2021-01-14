@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Auth;
 */
 
 /* User Note Routes */
-// 1. Get all user notes (GET) /api/user/{user_id}/notes{id}
-// 2. Show specific note by user (GET) /api/user/{user_id}/notes/{id}
-// 3. Create note (POST) /api/user/{user_id}/notes/create
-// 4. Update specific note (PUT) /api/user/{user_id}/notes/{id}
-// 5. Delete specific note (DELETE) /api/user/{user_id}/notes/{id}
+// 1. Get all user notes (GET) /api/user/notes
+// 2. Show specific note by user (GET) /api/user/notes/{id}
+// 3. Create note (POST) /api/user/notes
+// 4. Update specific note (PUT) /api/user/notes/{id}
+// 5. Delete specific note (DELETE) /api/user/notes/{id}
 
 Route::get('/unauthorized', function() {
     return response()->json(['error' => "Unauthorized"], 401);
