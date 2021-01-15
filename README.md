@@ -10,7 +10,7 @@ Install dependencies by running:
 composer install
 ```
 
-Confirm that the mysql credentials are correct in the `.env`:
+Create the `.env` file and update the credentials:
 
 ```
 DB_CONNECTION=mysql
@@ -19,6 +19,13 @@ DB_PORT=3306
 DB_DATABASE=notesapi
 DB_USERNAME=root
 DB_PASSWORD=
+```
+
+Run database commands:
+
+```
+php artisan migrate
+php artisan db:seed
 ```
 
 Run the laravel server:
