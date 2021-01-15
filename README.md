@@ -1,6 +1,6 @@
 # NotesApi
 
-A JSON API created using Laravel to allow users the ability to perform CRUD operations on notes.
+A RESTful API created using Laravel to allow users the ability to perform CRUD operations on notes.
 
 # Running the API
 
