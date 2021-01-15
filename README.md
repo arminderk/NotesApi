@@ -46,11 +46,11 @@ Now you can make API calls to [localhost:8000/api](http://localhost:8000/api).
 | DELETE    | /api/user/notes/{id} | Delete a note.                                     |
 | GET       | /api/user/logout     | Logout the authenticated user.                     |
 
+&nbsp;
 
+## Demonstration:
 
-**Demonstration:**
-
-API Login:
+**API Login:**
 
 ```
 curl -d "email=hettinger.zelda@example.net&password=password" -X POST http://localhost:8000/api/login
@@ -62,7 +62,7 @@ Response
 {"token":"6|TGXvRqvEIUkjcic1dyXEbdWmjIwVqLO5GxnW5Sz1"}
 ```
 
-Get All Notes:
+**Get All Notes:**
 
 ```
 curl -H 'Accept: application/json' -H "Authorization: Bearer 6|TGXvRqvEIUkjcic1dyXEbdWmjIwVqLO5GxnW5Sz1" http://localhost:8000/api/user/notes
@@ -74,7 +74,7 @@ Response
 [{"id":11,"user_id":2,"title":"Second Post for Zelda","note":"This is my second post","created_at":"2021-01-14T20:17:43.000000Z","updated_at":"2021-01-14T20:17:43.000000Z"},{"id":12,"user_id":2,"title":"Third Post for Zelda","note":"This is my third post","created_at":"2021-01-14T20:17:55.000000Z","updated_at":"2021-01-14T20:17:55.000000Z"},{"id":13,"user_id":2,"title":"Another amazing post!","note":"This is another post for me!","created_at":"2021-01-14T20:58:18.000000Z","updated_at":"2021-01-14T20:58:18.000000Z"},{"id":14,"user_id":2,"title":"This is another great post","note":"Body of my post","created_at":"2021-01-14T22:34:53.000000Z","updated_at":"2021-01-14T22:34:53.000000Z"}]
 ```
 
-Get a Specific Note:
+**Get a Specific Note:**
 
 ```
 curl -H 'Accept: application/json' -H "Authorization: Bearer 6|TGXvRqvEIUkjcic1dyXEbdWmjIwVqLO5GxnW5Sz1" http://localhost:8000/api/user/notes/11
@@ -86,7 +86,7 @@ Response
 {"id":11,"user_id":2,"title":"Second Post for Zelda","note":"This is my second post","created_at":"2021-01-14T20:17:43.000000Z","updated_at":"2021-01-14T20:17:43.000000Z"}
 ```
 
-Create a New Note:
+**Create a New Note:**
 
 ```
 curl -H 'Content-Type: application/json' -H "Authorization: Bearer 6|TGXvRqvEIUkjcic1dyXEbdWmjIwVqLO5GxnW5Sz1" -d '{"title":"This is another great post","note":"Body of my post"}' http://localhost:8000/api/user/notes
@@ -98,7 +98,7 @@ Response
 {"title":"This is another great post","note":"Body of my post","user_id":2,"updated_at":"2021-01-15T02:26:20.000000Z","created_at":"2021-01-15T02:26:20.000000Z","id":15}
 ```
 
-Update a Note:
+**Update a Note:**
 
 ```
 curl -H 'Content-Type: application/json' -H "Authorization: Bearer 6|TGXvRqvEIUkjcic1dyXEbdWmjIwVqLO5GxnW5Sz1" -X PUT -d '{"title":"Changed my note title","note":"Also change the body of the note!"}' http://localhost:8000/api/user/notes/11
@@ -110,19 +110,19 @@ Response
 {"id":11,"user_id":2,"title":"Changed my note title","note":"Also change the body of the note!","created_at":"2021-01-14T20:17:43.000000Z","updated_at":"2021-01-15T02:27:53.000000Z"}
 ```
 
-Delete a Note:
+**Delete a Note:**
 
 ```
 curl -H "Authorization: Bearer 6|TGXvRqvEIUkjcic1dyXEbdWmjIwVqLO5GxnW5Sz1" -X DELETE http://localhost:8000/api/user/notes/11
 ```
 
-Resonse
+Response
 
 ```json
 {"id":11,"user_id":2,"title":"Changed my note title","note":"Also change the body of the note!","created_at":"2021-01-14T20:17:43.000000Z","updated_at":"2021-01-15T02:27:53.000000Z"}
 ```
 
-Logout User:
+**Logout User:**
 
 ```
 curl -H 'Accept: application/json' -H "Authorization: Bearer 6|TGXvRqvEIUkjcic1dyXEbdWmjIwVqLO5GxnW5Sz1" http://localhost:8000/api/user/logout
