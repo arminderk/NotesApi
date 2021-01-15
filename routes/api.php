@@ -32,13 +32,19 @@ Route::get('/unauthorized', function() {
 /* Login - Provide Email and Password to Receive Auth Token */
 Route::post('/login', function(Request $request) {
     $creds = $request->only(['email', 'password']);
+    $response = [];
     
-    // Basic Auth
-    Auth::attempt($creds);
+    // Authentication
+    if(Auth::attempt($creds)) {
+        // Generate Token (Using Laravel Sanctum)
+        $token = $request->user()->createToken('token-name');
+        $response = ['token' => $token->plainTextToken];
+    }
+    else {
+        $response = ['error' => "Invalid email or password"];
+    }
 
-    // Generate Token (Using Laravel Sanctum)
-    $token = $request->user()->createToken('token-name');
-    return response()->json(['token' => $token->plainTextToken]);
+    return response()->json($response);
 })->name('login');
 
 /* User Note Routes */
