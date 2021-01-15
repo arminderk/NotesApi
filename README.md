@@ -38,7 +38,7 @@ Now you can make API calls to [localhost:8000/api](http://localhost:8000/api).
 
 | HTTP Verb | Endpoint             | Description                                        |
 |-----------|----------------------|----------------------------------------------------|
-| POST      | /api/login           | Provide email and password to receive auth token.  |
+| POST      | /api/login           | Provide email and password to receive Bearer token.|
 | GET       | /api/user/notes      | Retrieve all of the user's notes.                  |
 | GET       | /api/user/notes/{id} | Retrieve a specific user note by note_id.          |
 | POST      | /api/user/notes      | Create a new note.                                 |
