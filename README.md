@@ -25,7 +25,7 @@ Run database commands:
 
 ```
 php artisan migrate
-php artisan db:seed
+php artisan db:seed // Create users in the db for testing
 ```
 
 Run the laravel server:
