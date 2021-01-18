@@ -1,8 +1,8 @@
-# NotesApi
+# NotesAPI
 
 A RESTful API created using Laravel to allow users the ability to perform CRUD operations on notes.
 
-# Running the API
+## Running the API
 
 Install dependencies by running:
 
@@ -21,6 +21,36 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
+### Docker:
+
+(Optional) Add the following variables in the `.env` file:
+
+```
+APP_PORT=
+FORWARD_DB_PORT=
+```
+
+Run Laravel Sail command to create docker containers (**./vendor/bin/sail** can be aliased):
+
+```
+./vendor/bin/sail up
+```
+
+Run database commands:
+
+```
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan db:seed
+```
+
+Stop and remove containers:
+
+```
+docker-compose down
+```
+
+### Laravel Server:
+
 Run database commands:
 
 ```
@@ -36,6 +66,8 @@ php artisan serve
 
 Now you can make API calls to [localhost:8000/api](http://localhost:8000/api).
 
+## Endpoints
+
 | HTTP Verb | Endpoint             | Description                                        |
 |-----------|----------------------|----------------------------------------------------|
 | POST      | /api/login           | Provide email and password to receive Bearer token.|
@@ -48,7 +80,7 @@ Now you can make API calls to [localhost:8000/api](http://localhost:8000/api).
 
 &nbsp;
 
-## Demonstration:
+## Demonstration
 
 **API Login:**
 
