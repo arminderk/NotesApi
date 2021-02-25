@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use Exception;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class NoteController extends Controller
 {
@@ -28,10 +30,14 @@ class NoteController extends Controller
             'note' => 'required|max:1000',
         ]);
 
-        $post = $request->user()->notes()->create([
-            'title' => $request->title,
-            'note' => $request->note
-        ]);
+        try {
+            $post = $request->user()->notes()->create([
+                'title' => $request->title,
+                'note' => $request->note
+            ]);
+        } catch(Exception $e) {
+            throw new HttpException(500, $e->getMessage());
+        }
 
         return $post;
     }
@@ -64,7 +70,12 @@ class NoteController extends Controller
             'note' => 'max:1000',
         ]);
 
-        $note->update($request->all());
+        try {
+            $note->update($request->all());
+        } catch (Exception $e) {
+            throw new HttpException(500, $e->getMessage());
+        }
+
         return $note;
     }
 
@@ -78,7 +89,11 @@ class NoteController extends Controller
         $note = auth()->user()->notes->find($id);
         $this->authorize('delete', $note); // Verify against NotePolicy
 
-        $note->delete();
+        try {
+            $note->delete();
+        } catch(Exception $e) {
+            throw new HttpException(500, $e->getMessage());
+        }
         return $note;
     }
 }
